@@ -12,6 +12,8 @@
 //     unique: true
 //   }
 
+
+//!bulkcreate does the insertInto 
 //! Sequelize DataTypes
 // STRING: A variable-length string. You can specify a length using Sequelize.STRING(length).
 // CHAR: A fixed-length string.
