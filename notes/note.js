@@ -1,16 +1,33 @@
 //! migration 
 //   name: {
-// ?    type: Sequelize.STRING,
+//*    type: Sequelize.STRING,
 //     allowNull: false,
 //     unique: true
 //   },
 
   //!model
 //   name: {
-//?     type: DataTypes.STRING,
+//*     type: DataTypes.STRING,
 //     allowNull: false,
 //     unique: true
 //   }
+/**
+* name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        len: {
+          args: [2, 20],
+          msg: "name must be between 2 and 20 characters"
+        },
+        mustEndWithY(value) {
+          if (value[value.length - 1] === 'y') {
+            throw new Error("name must end with y")
+          }
+        }
+      }
+    }
+ */
 
 
 //!bulkcreate does the insertInto 
@@ -50,3 +67,39 @@
 //       model: 'AnotherModel', // Referenced model name
 //       key: 'id' // Referenced column name
 //     }
+
+
+// The queryInterface object in Sequelize provides methods for performing various database operations such as creating, altering, and dropping tables, columns, indexes, and constraints. Here's a list of some commonly used methods available in the queryInterface object:
+
+// Creating Tables:
+
+// createTable(tableName, attributes, options): Creates a new table with the specified name, attributes, and options.
+// Altering Tables:
+
+// !addColumn(tableName, attributeName, attributeDefinition): Adds a new column to an existing table.
+// !removeColumn(tableName, attributeName): Removes a column from an existing table.
+//! renameColumn(tableName, oldColumnName, newColumnName): Renames a column in an existing table.
+// !changeColumn(tableName, attributeName, dataTypeOrOptions): Changes the definition of a column in an existing table.
+//? Dropping Tables:
+
+// *dropTable(tableName, options): Drops (deletes) an existing table.
+//? Adding Constraints:
+
+// *addConstraint(tableName, options): Adds a constraint to a table.
+// *removeConstraint(tableName, constraintName): Removes a constraint from a table.
+// Adding Indexes:
+
+// *addIndex(tableName, options, rawAttributes): Adds an index to a table.
+// *removeIndex(tableName, indexName): Removes an index from a table.
+// Raw SQL Execution:
+
+// sequelize.query(): Executes a raw SQL query.
+// Seeding Data:
+
+// bulkInsert(tableName, records, options): Inserts multiple records into a table efficiently.
+// bulkDelete(tableName, where, options): Deletes multiple records from a table efficiently.
+// bulkUpdate(tableName, values, where, options): Updates multiple records in a table efficiently.
+// Other Operations:
+
+// describeTable(tableName, options): Describes the structure of a table.
+// showAllTables(): Lists all tables in the database.
